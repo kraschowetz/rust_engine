@@ -1,6 +1,6 @@
-mod engine;
+mod core;
 
-use engine::main::engine::Engine;
+use core::main::engine::Engine;
 
 fn main() -> Result<(), String>{
 
