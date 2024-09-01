@@ -34,7 +34,7 @@ impl Engine {
 
             if self.frame.queued_resize() {
                 self.frame.update_scale();
-                self.frame.update_frame_space();
+                self.frame.update_render_space();
             }
 
             self.frame.render();
