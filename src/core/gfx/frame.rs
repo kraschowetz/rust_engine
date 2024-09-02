@@ -36,9 +36,12 @@ impl Frame {
         let window = video_subsystem.window(name, width as u32, height as u32)
             .position_centered()
             .resizable()
+            .vulkan()
             .build()
             .expect("failet to init window!");
-        let mut _canvas = window.into_canvas().build()
+        let mut _canvas = window.into_canvas()
+            .accelerated()
+            .build()
             .expect("failed to init canvas!");
 
         let _event_queue: sdl2::EventPump = <Result<Sdl, String> as Clone>::clone(&sdl_context)?.event_pump()?;
@@ -90,7 +93,7 @@ impl Frame {
         self.canvas.set_draw_color(Color::RGBA(255, 255, 255, 64));
         self.canvas.fill_rect(self.render_space).unwrap();
         
-        /* stress test: ~65k rects being created & rendered per frame = ~35fps */
+        /* stress test: ~65k rects being created & rendered per frame = ~35fps @ dbg, ~180 @ rls */
         let mut rng = rand::thread_rng();
         for _i in 0..0xFFFF {
             let rect = sdl2::rect::Rect::new(
